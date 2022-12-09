@@ -5,7 +5,10 @@ from data import *
 class Game:
     max_tiers = 5
     max_weapon_skills = 6
-    max_supply_skills = 7
+    max_supply_skills = 6
+
+    def __init__(self):
+        self.upgrades = self.Upgrades()
 
     class Upgrade:
         def __init__(self, typ: MainWeapons or WeaponSkills or Supplies):
@@ -33,12 +36,20 @@ class Game:
                 if isinstance(x, MainWeapons):
                     return x
 
-    def choose(self, options):
-        flatten_tier = [upgrade for tier in Tier_List for evolution in tier for upgrade in evolution]
-        for up in flatten_tier:
-            if up in options:
-                return up
+        def getWeaponSpace(self, potential=False):
+            if potential:
+                add_potential = 0
+                # Add potential
+
+            return Game.max_weapon_skills - len(self.weapons)
+
+        def getBestChoice(self, options):
+            flatten_tier = [upgrade for tier in Tier_List for evolution in tier for upgrade in evolution]
+            for up in flatten_tier:
+                if up in options:
+                    return up
 
 
 g = Game()
-g.choose(2)
+c = g.getBestChoice([WeaponSkills.Type_A_Drone, WeaponSkills.Boomerang, WeaponSkills.Modular_Mine])
+print(c)
